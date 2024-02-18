@@ -29,3 +29,25 @@ Version Payante : Une version payante offrira l'accès à des coachs professionn
 Alertes et Badges : Des rappels de séances et des badges récompenseront les utilisateurs pour leur engagement.
 
 Système de Votes : Les utilisateurs pourront évaluer les programmes, favorisant une communauté active et collaborative.
+
+
+## Architecture du projet 
+- `src/main/java/backend/`: Répertoire principal pour les classes Java de votre application.
+  - `controller/`: Contiendrait les contrôleurs REST qui reçoivent les requêtes HTTP et renvoient les réponses appropriées.
+  - `model/`: Contiendrait les classes Java représentant les objets métier (utilisateur, séance d'entraînement, etc.).
+  - `repository/`: Contiendrait les interfaces de repository pour interagir avec la base de données.
+  - `service/`: Contiendrait les services métier qui implémentent la logique de votre application.
+  - `Main.java`: Classe principale de l'application Spring Boot.
+  - `config/`: Contiendrait les classes de configuration Spring (par exemple, configuration de base de données).
+  - `exception/`: Contiendrait les classes de gestion des exceptions.
+- `src/main/resources/`: Répertoire pour les ressources de votre application.
+  - `static/`: Contiendrait les fichiers statiques tels que les feuilles de style CSS, les scripts JavaScript, les images, etc.
+  - `templates/`: Contiendrait les templates HTML si vous utilisez un moteur de template comme Thymeleaf.
+
+
+## Prochaines étapes : 
+- Coder toutes les classes
+- Trouver une solution pour la bd
+- Gérer la liaison entre java et html/css js
+- Remplir le jira avec des taches claires par Khalil
+- 
