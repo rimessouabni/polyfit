@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PolyFit - Tableau de Bord</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Inclure la bibliothèque Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Styles spécifiques pour les animations et les graphiques */
+        .statistics {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+        .statistic {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f0f0f0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .statistic:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        canvas {
+            max-width: 400px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tableau de Bord</h1>
+        <nav>
+            <ul>
+                <li><a href="dashboard.html">Tableau de Bord</a></li>
+                <li><a href="programs.html">Programmes d'Entraînement</a></li>
+                <li><a href="workouts.html">Séances d'Entraînement</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="container dashboard-container">
+        <h2>Statistiques Personnelles</h2>
+        <div class="statistics">
+            <div class="statistic">
+                <h3>Nombre total de Séances</h3>
+                <p id="total-sessions">67</p>
+            </div>
+            <div class="statistic">
+                <h3>Calories Brûlées</h3>
+                <p id="total-calories">4,520</p>
+            </div>
+            <div class="statistic">
+                <h3>Temps d'Entraînement Total</h3>
+                <p id="total-training-time">22 heures</p>
+            </div>
+            <div class="statistic">
+                <h3>Masse Musculaire Gagnée</h3>
+                <p id="muscle-gained">2 kg</p>
+            </div>
+        </div>
+        <!-- Graphique des Statistiques -->
+        <canvas id="myChart"></canvas>
+    </div>
+    
+    <footer>
+        <p>Contactez-nous : contact@polyfit.com</p>
+    </footer>
+
+    <script>
+        // Données pour le graphique
+        const labels = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin'];
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Calories Brûlées (en kCal)',
+                data: [2000, 2500, 2200, 3000, 2800, 3200],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        // Configuration du graphique
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        // Créer le graphique
+        var myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+    </script>
+</body>
+</html>
