@@ -44,10 +44,18 @@ Système de Votes : Les utilisateurs pourront évaluer les programmes, favorisan
   - `static/`: Contiendrait les fichiers statiques tels que les feuilles de style CSS, les scripts JavaScript, les images, etc.
   - `templates/`: Contiendrait les templates HTML si vous utilisez un moteur de template comme Thymeleaf.
 
-
-## Prochaines étapes : 
-- Coder toutes les classes
-- Trouver une solution pour la bd
-- Gérer la liaison entre java et html/css js
-- Remplir le jira avec des taches claires par Khalil
 - 
+
+## Versions : 
+- Java : 17
+- Mysql :  8.0.36
+
+## To Install : 
+- Xampp (or another solution) 
+- Extensions Pack For Java (Extension VSCODE)
+- Sprint boot extension Pack (Extension VSCODE)
+- Maven for Java (Extension VSCODE)
+
+## Other : 
+- We run the PolyFitApplication.java class
+- add mysql to env variable if not done
