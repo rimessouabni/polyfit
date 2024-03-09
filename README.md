@@ -47,15 +47,21 @@ Système de Votes : Les utilisateurs pourront évaluer les programmes, favorisan
 - 
 
 ## Versions : 
-- Java : 17
-- Mysql :  8.0.36
+- java --version : 17.0.10 2024-01-16 LTS
+- mvn -version : Apache Maven 3.8.7 
+- si ca marche pas, voir si les env de variables sont bien existants ( exp : echo %JAVA_HOME%)
 
 ## To Install : 
-- Xampp (or another solution) 
+- cd ... path du projet
+- lancer cette commande : mvnw.cmd clean install
+- lancer le serveur tomecat : mvn spring-boot:run
+- lancer le nav web et entrer localhost:8080 (le port peut différer)
+- parcourir les differentes pages (localhost:8080/workouts.html - localhost:8080/dashboard.html - ...)
+
+## Extensions VSCODE : 
 - Extensions Pack For Java (Extension VSCODE)
 - Sprint boot extension Pack (Extension VSCODE)
 - Maven for Java (Extension VSCODE)
 
-## Other : 
-- We run the PolyFitApplication.java class
-- add mysql to env variable if not done
+
+
