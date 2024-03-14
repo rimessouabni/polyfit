@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Profile</h1>
+        <div id="profile-details">
+            <!-- User details will be displayed here dynamically -->
+        </div>
+    </div>
+
+    <script>
+        // Add your JavaScript code here to fetch user details and populate the profile-details div
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch user details from the backend API using fetch or other AJAX methods
+            fetch('/get-user/1')
+                .then(response => response.json())
+                .then(data => {
+                    // Populate the profile-details div with user details
+                    const profileDetails = document.getElementById('profile-details');
+                    profileDetails.innerHTML = `
+                        <p><strong>Username:</strong> ${data.username}</p>
+                        <p><strong>Email:</strong> ${data.email}</p>
+                        <p><strong>Date of Birth:</strong> ${data.dateOfBirth}</p>
+                        <!-- Add more user details as needed -->
+                    `;
+                })
+                .catch(error => console.error('Error fetching user profile:', error));
+        });
+    </script>
+</body>
+</html>

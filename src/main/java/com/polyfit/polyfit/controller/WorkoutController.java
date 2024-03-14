@@ -1,41 +1,53 @@
 package com.polyfit.polyfit.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.polyfit.polyfit.model.Workout;
+import com.polyfit.polyfit.repository.WorkoutRepository;
+
+import java.util.List;
+
 @RestController
-@RequestMapping("/workouts")
 public class WorkoutController {
 
-    // Endpoint to get all workouts
-    @GetMapping
-    public String getAllWorkouts() {
-        return "Get all workouts";
+    @Autowired
+    private WorkoutRepository workoutRepository;
+
+    @GetMapping("/get-all-workouts")
+    public List<Workout> getAllWorkouts() {
+        return workoutRepository.findAll();
     }
 
-    // Endpoint to get a specific workout by ID
-    @GetMapping("/{id}")
-    public String getWorkoutById(@PathVariable Long id) {
-        return "Get workout with ID: " + id;
+    @GetMapping("/get-workout/{id}")
+    public Workout getSingleWorkout(@PathVariable("id") Long id) {
+        return workoutRepository.findById(id).orElse(null);
     }
 
-    // Endpoint to create a new workout
-    @PostMapping
-    public String createWorkout(@RequestBody String workout) {
-        // Logic to create a new workout
-        return "Create a new workout: " + workout;
+    @DeleteMapping("/remove-workout/{id}")
+    public boolean deleteWorkout(@PathVariable("id") Long id) {
+        if (workoutRepository.existsById(id)) {
+            workoutRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
-    // Endpoint to update an existing workout
-    @PutMapping("/{id}")
-    public String updateWorkout(@PathVariable Long id, @RequestBody String workout) {
-        // Logic to update the workout with the given ID
-        return "Update workout with ID " + id + ": " + workout;
+    @PutMapping("/update-workout/{id}")
+    public Workout updateWorkout(@PathVariable("id") Long id, @RequestBody Workout updatedWorkout) {
+        Workout currentWorkout = workoutRepository.findById(id).orElse(null);
+        if (currentWorkout != null) {
+            // Update workout attributes
+            currentWorkout.setTitle(updatedWorkout.getTitle());
+            currentWorkout.setDescription(updatedWorkout.getDescription());
+            // Save the updated workout
+            workoutRepository.save(currentWorkout);
+        }
+        return currentWorkout;
     }
 
-    // Endpoint to delete a workout
-    @DeleteMapping("/{id}")
-    public String deleteWorkout(@PathVariable Long id) {
-        // Logic to delete the workout with the given ID
-        return "Delete workout with ID: " + id;
+    @PostMapping("/add-workout")
+    public Workout createWorkout(@RequestBody Workout newWorkout) {
+        return workoutRepository.save(newWorkout);
     }
 }
