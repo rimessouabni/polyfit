@@ -2,8 +2,11 @@ package com.polyfit.polyfit.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.polyfit.polyfit.model.Goal;
+import com.polyfit.polyfit.repository.GoalRepository;
 import com.polyfit.polyfit.services.GoalService;
 
 import java.util.List;
@@ -12,30 +15,34 @@ import java.util.List;
 public class GoalController {
 
     @Autowired
-    private GoalService goalService;
+    private GoalRepository goalRepository;
 
-    @GetMapping("/goals")
+    @GetMapping("/get-all-goals")
     public List<Goal> getAllGoals() {
-        return goalService.getAllGoals();
+        return goalRepository.findAll();
     }
 
-    @GetMapping("/goals/{id}")
+    @GetMapping("/get-goal/{id}")
     public Goal getGoalById(@PathVariable("id") Long id) {
-        return goalService.getGoalById(id);
+        return goalRepository.findById(id).orElse(null);
     }
 
-    @PostMapping("/goals")
-    public Goal createGoal(@RequestBody Goal goal) {
-        return goalService.createGoal(goal);
-    }
+    //@PostMapping("/goals")
+    //public Goal createGoal(@RequestBody Goal goal) {
+    //    return goalRepository.createGoal(goal);
+    //}
 
-    @PutMapping("/goals/{id}")
-    public Goal updateGoal(@PathVariable("id") Long id, @RequestBody Goal goal) {
-        return goalService.updateGoal(id, goal);
-    }
+    //@PutMapping("/goals/{id}")
+    //public Goal updateGoal(@PathVariable("id") Long id, @RequestBody Goal goal) {
+    //    return goalRepository.updateGoal(id, goal);
+    //}
 
-    @DeleteMapping("/goals/{id}")
-    public void deleteGoal(@PathVariable("id") Long id) {
-        goalService.deleteGoal(id);
+    @DeleteMapping("/remove-goal/{id}")
+    public boolean deleteGoal(@PathVariable("id") Long id) {
+        if (goalRepository.existsById(id)) {
+            goalRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

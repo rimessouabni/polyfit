@@ -7,5 +7,5 @@ import com.polyfit.polyfit.model.Goal;
 
 @Repository
 public interface GoalRepository extends JpaRepository<Goal, Long> {
-    // Ajoutez les méthodes de recherche personnalisées au besoin
+    Goal findByName(String name);
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import com.polyfit.polyfit.model.Goal;
 
 public interface GoalService {
+
     List<Goal> getAllGoals();
 
     Goal getGoalById(Long id);

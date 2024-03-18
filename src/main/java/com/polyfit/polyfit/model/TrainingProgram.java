@@ -1,12 +1,26 @@
 package com.polyfit.polyfit.model;
 
+import jakarta.persistence.*;
 import java.util.List;
 
+@Entity
 public class TrainingProgram {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "name")
     private String name;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+        name = "training_program_workout",
+        joinColumns = @JoinColumn(name = "training_program_id"),
+        inverseJoinColumns = @JoinColumn(name = "workout_id")
+    )
     private List<Workout> workoutSessions;
 
+    // Getters and setters
     public Long getId() {
         return id;
     }

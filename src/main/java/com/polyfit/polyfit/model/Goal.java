@@ -1,10 +1,18 @@
 package com.polyfit.polyfit.model;
-
+import jakarta.persistence.*;
+@Entity
 public class Goal {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "name", unique = true, nullable = false)
     private String name;
-    private String description;
 
+    @Column(name = "description")
+    private String description;
+    
+    
+    // Getters and setters
     public Long getId() {
         return id;
     }
