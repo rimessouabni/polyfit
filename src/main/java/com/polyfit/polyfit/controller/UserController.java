@@ -32,8 +32,8 @@ public class UserController {
     }
 
     @GetMapping("/profile/{userId}")
-    public ResponseEntity<User> getUserProfile(String userId) {
-        Optional<User> optionalUser = userRepository.findById((long) 1);
+    public ResponseEntity<User> getUserProfile(@PathVariable("id") Long userId) {
+        Optional<User> optionalUser = userRepository.findById(5);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             return ResponseEntity.ok(user);

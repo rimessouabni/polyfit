@@ -80,11 +80,11 @@
               }
             })
             .then((data) => {
-              // Store user ID in local storage
-              console.log("id", data.userId);
+              // Store userId in local storage
               localStorage.setItem("userId", data.userId);
-              // Redirect or perform other actions
-              window.location.href = "/landingPage.html"; // Redirect to profile page
+
+              // Redirect to landing page or profile page
+              window.location.href = "/profile.html";
             })
             .catch((error) => {
               console.error("Error:", error);
