@@ -9,6 +9,8 @@ import com.polyfit.polyfit.model.User;
 import com.polyfit.polyfit.repository.UserRepository;
 import com.polyfit.polyfit.services.UserService;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -29,6 +31,17 @@ public class UserController {
         return userRepository.findById(id).orElse(null);
     }
 
+    @GetMapping("/profile/{userId}")
+    public ResponseEntity<User> getUserProfile(String userId) {
+        Optional<User> optionalUser = userRepository.findById((long) 1);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @DeleteMapping("/remove-user/{id}")
     public boolean deleteUser(@PathVariable("id") Long id) {
         if (userRepository.existsById(id)) {
@@ -36,6 +49,11 @@ public class UserController {
             return true;
         }
         return false;
+    }
+
+    @PostMapping("/add-user")
+    public User createUser(@RequestBody User newUser) {
+        return userRepository.save(newUser);
     }
 
     @PutMapping("/update-user/{id}")
@@ -53,22 +71,21 @@ public class UserController {
         return currentUser;
     }
 
-    @PostMapping("/add-user")
-    public User createUser(@RequestBody User newUser) {
-        return userRepository.save(newUser);
-    }
-
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Map<String, String> credentials) {
+    public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> credentials) {
         String email = credentials.get("email");
         String password = credentials.get("password");
 
         User user = userRepository.findByEmail(email);
 
         if (user != null && user.getPassword().equals(password)) {
-            return ResponseEntity.ok("Login successful!");
+            Map<String, Object> response = new HashMap<>();
+            response.put("userId", user.getId());
+            response.put("message", "Login successful!");
+            return ResponseEntity.ok(response);
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Collections.singletonMap("message", "Invalid email or password"));
         }
     }
 }
