@@ -1,11 +1,10 @@
+// ExerciceRepository.java
 package com.polyfit.polyfit.repository;
 
+import com.polyfit.polyfit.model.Exercice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.polyfit.polyfit.model.Goal;
-
 @Repository
-public interface GoalRepository extends JpaRepository<Goal, Long> {
-    
+public interface ExerciceRepository extends JpaRepository<Exercice, String> {
 }
