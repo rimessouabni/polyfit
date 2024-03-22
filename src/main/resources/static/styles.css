@@ -41,6 +41,31 @@ nav ul li a {
     padding: 20px;
 }
 
+.program {
+    background-color: #d1f9d1; /* Light green color */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Blur effect */
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative; /* Positioning for the "started on" field */
+    max-width: 600px; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center the box horizontally */
+}
+
+.program h2 {
+    margin-bottom: 10px;
+}
+
+.started-on {
+    position: absolute;
+    top: 10px; /* Adjust this value to position the "started on" field */
+    right: 10px; /* Adjust this value to position the "started on" field */
+    background-color: #009688; /* Highlight color */
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
 .workout {
     background-color: #fff;
     border-radius: 5px;
@@ -67,9 +92,9 @@ nav ul li a {
     margin-bottom: 5px;
 }
 
-/* Styles pour les icônes */
+/* Resize the icons */
 .workout ul li img {
-    width: 30px; /* Ajustez la taille des icônes ici */
+    width: 24px; /* Adjust the width of the icons as needed */
     margin-right: 10px;
     vertical-align: middle;
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "training_programs")
 public class TrainingProgram {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,13 +13,13 @@ public class TrainingProgram {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(
-        name = "training_program_workout",
-        joinColumns = @JoinColumn(name = "training_program_id"),
-        inverseJoinColumns = @JoinColumn(name = "workout_id")
-    )
-    private List<Workout> workoutSessions;
+    @Column(name = "start_date")
+    private String startingDate;
+
+    
+
+    @OneToMany(mappedBy = "trainingProgram", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<WorkoutDetails> workoutDetailsList;
 
     // Getters and setters
     public Long getId() {
@@ -37,11 +38,36 @@ public class TrainingProgram {
         this.name = name;
     }
 
-    public List<Workout> getWorkoutSessions() {
-        return workoutSessions;
+    public List<WorkoutDetails> getworkoutDetailsList() {
+        return workoutDetailsList;
     }
 
-    public void setWorkoutSessions(List<Workout> workoutSessions) {
-        this.workoutSessions = workoutSessions;
+    public void setworkoutDetailsList(List<WorkoutDetails> workoutDetailsList) {
+        this.workoutDetailsList = workoutDetailsList;
+    }
+
+    public String getStartingDate() {
+        return startingDate;
+    }
+
+    public void setStartingDate(String startingDate) {
+        this.startingDate = startingDate;
+    }
+    
+    public boolean hasWorkoutOnDay(String dayName) {
+        if (getworkoutDetailsList() == null) {
+            return false;
+        }
+
+        return getworkoutDetailsList().stream()
+            .anyMatch(workoutDetail -> workoutDetail.getjourDeSemaine().equals(dayName));
+    }
+    
+    public String nameOfTheWorkoutAfterComparaison(String dayName){
+        return getworkoutDetailsList()
+        .stream()
+        .filter(workoutDetail -> workoutDetail.getjourDeSemaine().equals(dayName))
+        .findFirst()
+        .map(workoutDetail -> workoutDetail.getWorkout().getTitle()).orElse("Repos");
     }
 }

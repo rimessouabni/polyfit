@@ -12,44 +12,29 @@
         <nav>
             <ul>
                 <li><a href="dashboard.html">Tableau de Bord</a></li>
-                <li><a href="programs.html">Programmes d'Entraînement</a></li>
-                <li><a href="workouts.html">Séances d'Entraînement</a></li>
+                <li><a href="programs">Programmes d'Entraînement</a></li>
+                <li><a href="workouts">Séances d'Entraînement</a></li>
             </ul>
         </nav>
     </header>
     
     <div class="container programs-container">
-        <h2>Programme de Musculation - 4 Jours par Semaine</h2>
+        <!-- Encapsulate all headers within a program box -->
         <div class="program">
-            <h3>Jour 1 - Entraînement du Haut du Corps</h3>
-            <ul>
-                <li>Développé Couché - 4 séries de 8 répétitions</li>
-                <li>Tractions à la Barre Fixe - 3 séries de 10 répétitions</li>
-                <li>Élévations Latérales - 3 séries de 12 répétitions</li>
-                <li>Pompes Diamant - 3 séries de 10 répétitions</li>
-            </ul>
-        </div>
-        <div class="program">
-            <h3>Jour 2 - Entraînement du Bas du Corps</h3>
-            <ul>
-                <li>Squats - 4 séries de 10 répétitions</li>
-                <li>Fentes Alternées - 3 séries de 12 répétitions par jambe</li>
-                <li>Leg Curl - 3 séries de 12 répétitions</li>
-                <li>Calf Raises - 3 séries de 15 répétitions</li>
-            </ul>
-        </div>
-        <div class="program">
-            <h3>Jour 3 - Repos</h3>
-            <p>Jour de repos pour permettre à vos muscles de récupérer.</p>
-        </div>
-        <div class="program">
-            <h3>Jour 4 - Entraînement Complet</h3>
-            <ul>
-                <li>Développé Militaire - 4 séries de 10 répétitions</li>
-                <li>Tirage Horizontal - 3 séries de 12 répétitions</li>
-                <li>Curls Biceps - 3 séries de 12 répétitions</li>
-                <li>Extensions Triceps - 3 séries de 12 répétitions</li>
-            </ul>
+            <!-- Add "started on" field with starting date -->
+            <h2 th:text="${singleProgram.name}">Titre du Programme</h2>
+            <p class="started-on">Commencé le <span th:text="${singleProgram.getStartingDate()}"></span></p>
+            <div th:each="dayName : ${frenchDayNames}">
+                <div class="program">
+                    <h3>
+                        <span th:text="${dayName}"></span>
+                        <span th:if="${singleProgram.hasWorkoutOnDay(dayName)}">
+                            : <span th:text="${singleProgram.nameOfTheWorkoutAfterComparaison(dayName)}"></span>
+                        </span>
+                        <span th:unless="${singleProgram.hasWorkoutOnDay(dayName)}"> - Repos</span>
+                    </h3>
+                </div>
+            </div>
         </div>
     </div>
     
