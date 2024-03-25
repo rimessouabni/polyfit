@@ -68,21 +68,21 @@
           </div>
 
           <div>
-            <label for="objectifs" class="block">Goals</label>
+            <label for="objectifs" class="block">Workout Type</label>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div
                 class="bg-white rounded-lg border-2 p-4 cursor-pointer"
-                onclick="selectOption('Musculation', this)"
+                onclick="selectOption('Weightlifting', this)"
               >
                 <input
                   type="hidden"
                   name="objectif"
                   id="objectif1"
-                  value="Musculation"
+                  value="Weightlifting"
                 />
                 <img
                   src="./images/fitness.png"
-                  alt="Musculation"
+                  alt="Weightlifting"
                   class="w-full h-32 object-cover rounded-md mb-2"
                 />
                 <p class="text-center font-semibold">Weightlifting</p>
@@ -106,17 +106,17 @@
               </div>
               <div
                 class="bg-white rounded-lg p-4 border-2 cursor-pointer"
-                onclick="selectOption('Flexibilité', this)"
+                onclick="selectOption('Flexibility', this)"
               >
                 <input
                   type="hidden"
                   name="objectif"
                   id="objectif3"
-                  value="Flexibilité"
+                  value="Flexibility"
                 />
                 <img
                   src="./images/meditation.png"
-                  alt="Flexibilité"
+                  alt="Flexibility"
                   class="w-full h-32 object-cover rounded-md mb-2"
                 />
                 <p class="text-center font-semibold">Flexibility</p>
@@ -131,9 +131,9 @@
               name="niveau"
               class="w-full border-2 rounded-md bg-gray-100 px-2 py-2"
             >
-              <option value="debutant">Beginner</option>
-              <option value="intermediaire">Intermediate</option>
-              <option value="avance">Advanced</option>
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
             </select>
           </div>
 
@@ -141,7 +141,7 @@
             type="submit"
             class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
-            S'inscrire
+            Sign Up
           </button>
           <p class="text-gray-700 text-sm mt-4">
             Already have an account?
@@ -159,7 +159,24 @@
           prevSelected.classList.remove("border-blue-500");
         }
         element.classList.add("border-blue-500");
-        document.getElementById("objectif").value = option;
+
+        // Update the value of the hidden input field based on the selected option
+        switch (option) {
+          case "Weightlifting":
+            document.getElementById("objectif1").value = option;
+            console.log("op", option);
+            break;
+          case "Cardio":
+            document.getElementById("objectif2").value = option;
+            console.log("op", option);
+            break;
+          case "Flexibility":
+            document.getElementById("objectif3").value = option;
+            console.log("op", option);
+            break;
+          default:
+            break;
+        }
       }
 
       document
@@ -176,8 +193,10 @@
             email: formData.get("email"),
             password: formData.get("motdepasse"),
             dateOfBirth: formData.get("dateOfBirth"),
-            objectif: formData.get("objectif"),
+            workoutType: formData.get("objectif"),
+            fitnessLevel: formData.get("niveau"),
           };
+          console.log("dataU", userData);
 
           // Send POST request to your backend API
           fetch("/add-user", {
@@ -187,18 +206,21 @@
             },
             body: JSON.stringify(userData),
           })
-            .then((response) => response.json()) // Parse response JSON
-            .then((data) => {
-              if (data.success) {
-                alert("Inscription réussie !");
-                window.location.href = "/login.html"; // Redirect to login page
+            .then((response) => {
+              if (response.ok) {
+                return response.json(); // Parse response body as JSON
               } else {
-                alert("Erreur lors de l'inscription.");
+                throw new Error("Registration failed");
               }
             })
+            .then((data) => {
+              // Handle successful registration
+              alert("Inscription réussie !");
+              window.location.href = "/auth/login.html"; // Redirect to login page
+            })
             .catch((error) => {
-              console.error("Erreur lors de l'inscription:", error);
-              alert("Erreur lors de l'inscription.");
+              console.error("Error:", error);
+              alert("An error occurred while signing up.");
             });
         });
     </script>

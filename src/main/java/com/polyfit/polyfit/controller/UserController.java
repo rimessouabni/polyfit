@@ -41,8 +41,23 @@ public class UserController {
     }
 
     @PostMapping("/add-user")
-    public User createUser(@RequestBody User newUser) {
-        return userRepository.save(newUser);
+    public ResponseEntity<Map<String, Object>> createUser(@RequestBody User newUser) {
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            // Save the new user to the database
+            User savedUser = userRepository.save(newUser);
+
+            // Return success response
+            response.put("success", true);
+            response.put("user", savedUser);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            // Return error response if there's any exception
+            response.put("success", false);
+            response.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
     }
 
     @PutMapping("/update-user/{id}")
@@ -54,6 +69,9 @@ public class UserController {
             currentUser.setEmail(updatedUser.getEmail());
             currentUser.setPassword(updatedUser.getPassword());
             currentUser.setDateOfBirth(updatedUser.getDateOfBirth());
+            currentUser.setWorkoutType(updatedUser.getWorkoutType());
+            currentUser.setFitnessLevel(updatedUser.getFitnessLevel());
+
             // Save the updated user
             userRepository.save(currentUser);
         }

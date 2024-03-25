@@ -22,6 +22,14 @@ public class User {
     @Column(name = "date_of_birth")
     private Date dateOfBirth;
 
+    @Column(name = "workout_type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private WorkoutType workoutType;
+
+    @Column(name = "fitness_level", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private FitnessLevel fitnessLevel;
+
     // Getters and setters
     public Long getId() {
         return id;
@@ -61,5 +69,21 @@ public class User {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public WorkoutType getWorkoutType() {
+        return workoutType;
+    }
+
+    public void setWorkoutType(WorkoutType workoutType) {
+        this.workoutType = workoutType;
+    }
+
+    public FitnessLevel getFitnessLevel() {
+        return fitnessLevel;
+    }
+
+    public void setFitnessLevel(FitnessLevel fitnessLevel) {
+        this.fitnessLevel = fitnessLevel;
     }
 }

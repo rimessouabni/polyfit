@@ -44,18 +44,18 @@
 
               <div class="mt-4 border-t border-gray-300 pt-4">
                 <div class="flex justify-between items-center px-14">
-                  <p class="text-sm text-gray-600">Gender</p>
+                  <p class="text-sm text-gray-600">Workout Type</p>
                   <p
-                    id="gender"
+                    id="workoutType"
                     class="text-sm font-semibold text-gray-800"
                   ></p>
                 </div>
 
                 <div class="mt-4 border-t border-gray-300 pt-4">
                   <div class="flex justify-between items-center px-14">
-                    <p class="text-sm text-gray-600">Fitness</p>
+                    <p class="text-sm text-gray-600">Fitness Level</p>
                     <p
-                      id="fitnessType"
+                      id="fitnessLevel"
                       class="text-sm font-semibold text-gray-800"
                     ></p>
                   </div>
@@ -82,6 +82,7 @@
         .getElementById("logoutBtn")
         .addEventListener("click", function () {
           if (confirm("Are you sure you want to log out?")) {
+            localStorage.removeItem("userId");
             window.location.href = "/login.html";
           }
         });
@@ -93,11 +94,15 @@
         fetch(`/get-user/${userId}`)
           .then((response) => response.json())
           .then((data) => {
+            console.log(data);
             document.getElementById("username").innerText = data.username;
             document.getElementById("email").innerText = data.email;
             document.getElementById("dateOfBirth").innerText = data.dateOfBirth;
-            document.getElementById("gender").innerText = data.gender;
-            document.getElementById("fitnessType").innerText = data.fitnessType;
+            document.getElementById("workoutType").innerText = String(
+              data.workoutType
+            );
+            document.getElementById("fitnessLevel").innerText =
+              data.fitnessLevel;
           })
           .catch((error) => console.error("Error:", error));
       };
